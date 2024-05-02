@@ -1,0 +1,103 @@
+---
+title: "asesinatos cometidos en cr en 2023"
+author: "Chris Cisneros"
+lang: es
+format:
+  html:
+    toc: true
+    theme: lux
+---
+
+# Presentacion 
+Este documento contiene un conjunto de graficos sobre homicidios cometidos en CR en 2023
+
+# Lectura de datos
+```{r}
+#| label: lectura-datos
+
+delitos_2023 <- read.csv(file = "estadisticaspoliciales2023.csv")
+```
+
+#filtrado de homicidios
+
+```{r}
+#| label: filtrado-homicidios
+ homicidios2023 <- 
+ delitos_2023[delitos_2023$Delito == "HOMICIDIO",]
+```
+
+
+# homicidios por provincia
+```{r}
+#| label: homicidios_x_provincia
+
+#conteo de homicidios por provincia
+homicidios_x_provincia <- table(homicidios2023$Provincia)
+
+#ordenamiento por cantidad de homicidios
+homicidios_x_provincia <- sort(homicidios_x_provincia, decreasing = TRUE)
+
+#grafico de barras
+barplot(
+  height = homicidios_x_provincia,
+  las = 2,
+  cex.names = 0.7,
+  main = "Homicidios por provincia"
+  )
+```
+
+# Homicidios por canton
+```{r}
+#| label: homicidios_x_canton
+
+#conteo de homicidios por provincia
+homicidios_x_canton <- table(homicidios2023$Canton)
+
+#ordenamiento por cantidad de homicidios
+homicidios_x_canton <- sort(homicidios_x_canton, decreasing = TRUE)
+
+#seleccion de los 20 cantones con mas homicidios
+ homicidios_x_canton <- head(homicidios_x_canton, 20)
+
+#seleccion de los 20 cantones con menos homicidios
+# homicidios_x_canton <- tail(homicidios_x_canton, 20)   
+
+#grafico de barras
+barplot(
+  height = homicidios_x_canton,
+  las = 2,
+  cex.names = 0.6,
+  main = "Homicidios por canton"
+)
+
+```
+
+
+# Homicidios por sexo
+```{r}
+#| label: homicidios_x_sexo
+
+#conteo de homicidios por provincia
+homicidios_x_sexo <- table(homicidios2023$Genero)
+
+#ordenamiento por cantidad de homicidios
+homicidios_x_sexo <- sort(homicidios_x_sexo, decreasing = TRUE)
+
+#grafico de barras
+barplot(
+  height = homicidios_x_sexo,
+  las = 2,
+  cex.names = 0.6,
+  main = "Homicidios por sexo"
+)
+
+```
+
+
+
+
+
+
+
+
+
